@@ -1771,10 +1771,13 @@ button, input, select, textarea {
 }
 
 .founder-top {
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
   margin-bottom: 1.5rem;
+}
+
+.founder-header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .founder-avatar-wrap {
