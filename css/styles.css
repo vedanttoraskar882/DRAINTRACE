@@ -1851,7 +1851,7 @@ button, input, select, textarea {
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0;
 }
 
 .cred-chip {
