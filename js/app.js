@@ -42,25 +42,42 @@ function initNavigation() {
   window.addEventListener('scroll', handleScroll, { passive: true });
   handleScroll();
 
-  // Mobile menu toggle
+  // Mobile menu toggle & close
+  const mobileCloseBtn = document.getElementById('mobile-drawer-close');
+
+  const closeDrawer = () => {
+    if (mobileBtn) mobileBtn.classList.remove('open');
+    if (mobileDrawer) mobileDrawer.classList.remove('open');
+    if (mobileBtn) mobileBtn.setAttribute('aria-expanded', 'false');
+    if (mobileDrawer) mobileDrawer.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  };
+
+  const openDrawer = () => {
+    if (mobileBtn) mobileBtn.classList.add('open');
+    if (mobileDrawer) mobileDrawer.classList.add('open');
+    if (mobileBtn) mobileBtn.setAttribute('aria-expanded', 'true');
+    if (mobileDrawer) mobileDrawer.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  };
+
   if (mobileBtn && mobileDrawer) {
     mobileBtn.addEventListener('click', () => {
-      const isOpen = mobileBtn.classList.toggle('open');
-      mobileDrawer.classList.toggle('open');
-      mobileBtn.setAttribute('aria-expanded', String(isOpen));
-      mobileDrawer.setAttribute('aria-hidden', String(!isOpen));
-      document.body.style.overflow = isOpen ? 'hidden' : '';
+      const isOpen = mobileDrawer.classList.contains('open');
+      if (isOpen) {
+        closeDrawer();
+      } else {
+        openDrawer();
+      }
     });
 
-    // Close mobile menu when a nav link is clicked
+    if (mobileCloseBtn) {
+      mobileCloseBtn.addEventListener('click', closeDrawer);
+    }
+
+    // Close mobile menu when any nav link or CTA is clicked
     mobileDrawer.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileBtn.classList.remove('open');
-        mobileDrawer.classList.remove('open');
-        mobileBtn.setAttribute('aria-expanded', 'false');
-        mobileDrawer.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-      });
+      link.addEventListener('click', closeDrawer);
     });
   }
 
